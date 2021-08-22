@@ -2,10 +2,6 @@
 
 @using CountdownTimer.Model;
 
-<h1>countdown timer</h1>
-
-welcome to the countdown timer app.
-
 <EditForm Model="@countdownTimerEvent" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -22,12 +18,20 @@ welcome to the countdown timer app.
     <button type="submit">Start</button>
 </EditForm>
 
+<p>@countdownTimerEvent.TimeLeft</p>
+
 @code {
     private CountdownTimerEvent countdownTimerEvent = new();
 
-    private void HandleValidSubmit()
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            countdownTimerEvent.SecondCountdownEvent += (s, e) => { InvokeAsync(StateHasChanged); };
+        }
+
+        private void HandleValidSubmit()
     {
-        System.Diagnostics.Debug.WriteLine($"Name: {countdownTimerEvent.Name}");
-        System.Diagnostics.Debug.WriteLine($"DateTime: {countdownTimerEvent.Date}");
+        countdownTimerEvent.StartCountdown();
     }
 } 
