@@ -7,8 +7,17 @@
 welcome to the countdown timer app.
 
 <EditForm Model="@countdownTimerEvent" OnValidSubmit="@HandleValidSubmit">
-    <input id="name" @bind="countdownTimerEvent.Name" />
-    <input id="date" @bind="countdownTimerEvent.DateTime" />
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>
+        Name:
+        <InputText id="name" DisplayName="Name" @bind-Value="countdownTimerEvent.Name" />
+    </label>
+    <label>
+        Date:
+        <InputDate id="date" DisplayName="Date" @bind-Value="countdownTimerEvent.Date" />
+    </label>
 
     <button type="submit">Start</button>
 </EditForm>
@@ -19,6 +28,6 @@ welcome to the countdown timer app.
     private void HandleValidSubmit()
     {
         System.Diagnostics.Debug.WriteLine($"Name: {countdownTimerEvent.Name}");
-        System.Diagnostics.Debug.WriteLine($"DateTime: {countdownTimerEvent.DateTime}");
+        System.Diagnostics.Debug.WriteLine($"DateTime: {countdownTimerEvent.Date}");
     }
 } 
