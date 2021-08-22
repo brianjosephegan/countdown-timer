@@ -1,5 +1,24 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+@using CountdownTimer.Model;
 
-Welcome to your new app.
+<h1>countdown timer</h1>
+
+welcome to the countdown timer app.
+
+<EditForm Model="@countdownTimerEvent" OnValidSubmit="@HandleValidSubmit">
+    <input id="name" @bind="countdownTimerEvent.Name" />
+    <input id="date" @bind="countdownTimerEvent.DateTime" />
+
+    <button type="submit">Start</button>
+</EditForm>
+
+@code {
+    private CountdownTimerEvent countdownTimerEvent = new();
+
+    private void HandleValidSubmit()
+    {
+        System.Diagnostics.Debug.WriteLine($"Name: {countdownTimerEvent.Name}");
+        System.Diagnostics.Debug.WriteLine($"DateTime: {countdownTimerEvent.DateTime}");
+    }
+} 
