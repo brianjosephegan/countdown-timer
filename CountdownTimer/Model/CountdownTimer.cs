@@ -41,7 +41,7 @@ namespace CountdownTimer.Model
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
