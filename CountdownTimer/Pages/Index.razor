@@ -19,6 +19,7 @@
 
                     <p>
                         <button type="submit">Start</button>
+                        <button type="button" @onclick="HandleStop">Stop</button>
                     </p>
 
                     <hr>
@@ -48,6 +49,11 @@
 
     private void HandleValidSubmit()
     {
-        countdownTimerEvent.StartCountdown();
+        countdownTimerEvent.Start();
+    }
+
+    private void HandleStop()
+    {
+        countdownTimerEvent.Stop();
     }
 }

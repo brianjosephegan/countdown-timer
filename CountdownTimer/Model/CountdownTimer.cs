@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Timers;
-using System.Threading.Tasks;
 
 namespace CountdownTimer.Model
 {
@@ -11,9 +8,16 @@ namespace CountdownTimer.Model
     {
         public event EventHandler OnTick;
 
+        private readonly Timer timer; 
+
         public CountdownTimer()
         {
             Date = DateTime.Today.AddDays(1);
+
+            timer = new Timer();
+            timer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
+            timer.Elapsed += Timer_Elapsed;
+            timer.AutoReset = true;
         }
 
         [AfterToday]
@@ -22,26 +26,22 @@ namespace CountdownTimer.Model
 
         public TimeSpan TimeLeft { get; private set; }
 
-        public void StartCountdown()
+        public void Start()
         {
             TimeLeft = Date.Subtract(DateTime.Now);
-            CreateAndStartTimer();
+            
+            timer.Start();
+        }
+
+        public void Stop()
+        {
+            timer.Stop();
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             TimeLeft = TimeLeft.Subtract(TimeSpan.FromSeconds(1));
             OnTick?.Invoke(this, new EventArgs());
-        }
-
-        private void CreateAndStartTimer()
-        {
-            var timer = new Timer();
-            timer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
-            timer.Elapsed += Timer_Elapsed;
-            timer.AutoReset = true;
-            timer.Enabled = true;
-            timer.Start();
         }
     }
 }
