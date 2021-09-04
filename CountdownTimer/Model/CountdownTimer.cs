@@ -4,11 +4,12 @@ using System.Timers;
 
 namespace CountdownTimer.Model
 {
-    public class CountdownTimer
+    public sealed class CountdownTimer : IDisposable
     {
         public event EventHandler OnTick;
 
-        private readonly Timer timer; 
+        private readonly Timer timer;
+        private bool disposedValue;
 
         public CountdownTimer()
         {
@@ -36,6 +37,25 @@ namespace CountdownTimer.Model
         public void Stop()
         {
             timer.Stop();
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    timer.Dispose();
+                }
+
+                disposedValue = true;
+            }
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
