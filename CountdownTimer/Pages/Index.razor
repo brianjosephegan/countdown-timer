@@ -2,36 +2,52 @@
 
 @using CountdownTimer.Model;
 
-<EditForm Model="@countdownTimerEvent" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="content">
+                <h1><span class="oi oi-clock"></span> Countdown Timer</h1>
 
-    <label>
-        Name:
-        <InputText id="name" DisplayName="Name" @bind-Value="countdownTimerEvent.Name" />
-    </label>
-    <label>
-        Date:
-        <InputDate id="date" DisplayName="Date" @bind-Value="countdownTimerEvent.Date" />
-    </label>
+                <EditForm Model="@countdownTimerEvent" OnValidSubmit="@HandleValidSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
 
-    <button type="submit">Start</button>
-</EditForm>
+                    <h3>
+                        Date:
+                        <InputDate id="date" DisplayName="Date" @bind-Value="countdownTimerEvent.Date" />
+                    </h3>
 
-<p>@countdownTimerEvent.TimeLeft</p>
+                    <p>
+                        <button type="submit">Start</button>
+                    </p>
+
+                    <hr>
+
+                    <button class="btn btn-default btn-lg" type="submit">
+                        <span>D: @countdownTimerEvent.TimeLeft.Days</span>
+                        <span>H: @countdownTimerEvent.TimeLeft.Hours</span>
+                        <span>M: @countdownTimerEvent.TimeLeft.Minutes</span>
+                        <span>S: @countdownTimerEvent.TimeLeft.Seconds</span>
+                    </button>
+                </EditForm>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
-    private CountdownTimerEvent countdownTimerEvent = new();
+    private CountdownTimer countdownTimerEvent = new();
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-            countdownTimerEvent.SecondCountdownEvent += (s, e) => { InvokeAsync(StateHasChanged); };
-        }
+        countdownTimerEvent.OnTick += (s, e) => { InvokeAsync(StateHasChanged); };
+    }
 
-        private void HandleValidSubmit()
+    private void HandleValidSubmit()
     {
         countdownTimerEvent.StartCountdown();
     }
-} 
+}

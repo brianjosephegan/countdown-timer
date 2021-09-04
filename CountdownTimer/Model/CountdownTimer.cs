@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace CountdownTimer.Model
 {
-    public class CountdownTimerEvent
+    public class CountdownTimer
     {
-        public event EventHandler SecondCountdownEvent;
+        public event EventHandler OnTick;
 
-        public CountdownTimerEvent()
+        public CountdownTimer()
         {
             Date = DateTime.Today.AddDays(1);
         }
-
-        [Required]
-        public string Name { get; set; }
 
         [AfterToday]
         [Required]
@@ -28,19 +25,23 @@ namespace CountdownTimer.Model
         public void StartCountdown()
         {
             TimeLeft = Date.Subtract(DateTime.Now);
+            CreateAndStartTimer();
+        }
 
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            TimeLeft = TimeLeft.Subtract(TimeSpan.FromSeconds(1));
+            OnTick?.Invoke(this, new EventArgs());
+        }
+
+        private void CreateAndStartTimer()
+        {
             var timer = new Timer();
             timer.Interval = TimeSpan.FromSeconds(1).TotalMilliseconds;
             timer.Elapsed += Timer_Elapsed;
             timer.AutoReset = true;
             timer.Enabled = true;
             timer.Start();
-        }
-
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            TimeLeft = TimeLeft.Subtract(TimeSpan.FromSeconds(1));
-            SecondCountdownEvent?.Invoke(this, new EventArgs());
         }
     }
 }
