@@ -8,7 +8,12 @@ namespace CountdownTimer.Model
 {
     public class AfterTodayAttribute : ValidationAttribute
     {
-        private string errorMessage = "The Date field is required to be after today.";
+        private const string errorMessage = "The Date field is required to be after today.";
+
+        public AfterTodayAttribute()
+        {
+            ErrorMessage = errorMessage;
+        }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountdownTimer", "CountdownTimer\CountdownTimer.csproj", "{EB8780E2-8FC5-4C3C-8343-51B343A81CCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CountdownTimer", "CountdownTimer\CountdownTimer.csproj", "{EB8780E2-8FC5-4C3C-8343-51B343A81CCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CountdownTimer.Tests", "CountdownTimer.Tests\CountdownTimer.Tests.csproj", "{9305A9DB-35A3-4E3C-981C-B2A543037007}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{EB8780E2-8FC5-4C3C-8343-51B343A81CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB8780E2-8FC5-4C3C-8343-51B343A81CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB8780E2-8FC5-4C3C-8343-51B343A81CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9305A9DB-35A3-4E3C-981C-B2A543037007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9305A9DB-35A3-4E3C-981C-B2A543037007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9305A9DB-35A3-4E3C-981C-B2A543037007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9305A9DB-35A3-4E3C-981C-B2A543037007}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
